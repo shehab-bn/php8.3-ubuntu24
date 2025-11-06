@@ -10,6 +10,8 @@ sudo add-apt-repository ppa:ondrej/php -y
 sudo apt-get -y update
 sudo apt-get -y upgrade
 sudo apt-get install -y nginx
+sudo apt install -y software-properties-common
+sudo LC_ALL=C.UTF-8 add-apt-repository ppa:ondrej/php -y
 
 #insttall mysql-server with password
 NEW_PASS=$(cat /dev/urandom | tr -dc 'a-zA-Z0-9' | fold -w 10 | head -n 1)
@@ -19,8 +21,9 @@ sudo apt-get -y install mysql-server
 echo $NEW_PASS > mysql_cred.txt
 
 sudo apt-get install -y mysql-server
-sudo apt-get install -y php8.3-fpm php8.3-cli php8.3-curl php8.3-mbstring php8.3-xml php8.3-zip php8.3-mysql php8.3-imagick php8.3-gd php8.3-intl
-sudo sed -i s/\;cgi\.fix_pathinfo\s*\=\s*1/cgi.fix_pathinfo\=0/ /etc/php/8.3/fpm/php.ini
+sudo apt-get install -y php8.4-fpm php8.4-cli php8.4-curl php8.4-mbstring php8.4-xml php8.4-zip php8.4-mysql php8.4-imagick php8.4-gd php8.4-intl
+apt install php8.4-{cli,pdo,mysql,zip,gd,mbstring,curl,xml,bcmath,common
+sudo sed -i s/\;cgi\.fix_pathinfo\s*\=\s*1/cgi.fix_pathinfo\=0/ /etc/php/8.4/fpm/php.ini
 
 sudo cat >  /var/www/html/index.html << EOL
 <!DOCTYPE html>
@@ -38,7 +41,7 @@ sudo cat >  /var/www/html/index.html << EOL
 <body>
 <h1>Welcome to nginx!</h1>
 <p>If you see this page, the nginx web server is successfully installed and
-working. Further configuration is required. (8.3)</p>
+working. Further configuration is required. (8.4)</p>
 <p>For online documentation and support please refer to
 <a href="http://nginx.org/">nginx.org</a>.<br/>
 Commercial support is available at
@@ -62,7 +65,7 @@ server {
         }
         location ~ \.php$ {
                 include snippets/fastcgi-php.conf;
-                fastcgi_pass unix:/run/php/php8.3-fpm.sock;
+                fastcgi_pass unix:/run/php/php8.4-fpm.sock;
         }
         # redirect server error pages to the static page /50x.html
         error_page 500 502 503 504 /50x.html;
