@@ -12,7 +12,7 @@ sudo apt-get -y upgrade
 sudo apt-get install -y nginx
 sudo apt install -y software-properties-common
 sudo LC_ALL=C.UTF-8 add-apt-repository ppa:ondrej/php -y
-
+sudo apt install certbot python3-certbot-nginx
 #insttall mysql-server with password
 NEW_PASS=$(cat /dev/urandom | tr -dc 'a-zA-Z0-9' | fold -w 10 | head -n 1)
 sudo debconf-set-selections <<< "mysql-server mysql-server/root_password password "$NEW_PASS
@@ -74,7 +74,7 @@ server {
         }
 }
 EOL
-sudo service php8.3-fpm reload
+sudo service php8.4-fpm reload
 sudo service nginx stop
 sudo service nginx start
 
